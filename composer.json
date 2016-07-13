@@ -1,0 +1,30 @@
+{
+  "name":"newband/message-queue-bundle",
+  "description":"Abstract layer for message queue system",
+  "version":"1.0.0",
+  "keywords":[
+    "message queue",
+    "abstract layer"
+  ],
+  "type":"library",
+  "license":"Apache-2.0",
+  "authors":[
+    {
+      "name":"Zafar <zafar@newband.com>",
+      "homepage":"http://newband.com"
+    }
+  ],
+  "require":{
+    "php": ">=5.3.3",
+    "aws/aws-sdk-php": "~3.0",
+    "symfony/symfony": "~2.8"
+  },
+  "autoload": {
+    "psr-0": {
+      "Newband\\Bundle\\MessageQueueBundle\\": "src"
+    },
+    "exclude-from-classmap": [
+      "/Tests/"
+    ]
+  }
+}
