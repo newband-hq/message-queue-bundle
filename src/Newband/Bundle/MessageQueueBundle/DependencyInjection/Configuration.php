@@ -22,26 +22,54 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('sqs')
+                ->append($this->addSqsNode())
+            ->end();
+
+        return $treeBuilder;
+    }
+
+    private function addSqsNode()
+    {
+        $treeBuilder = new TreeBuilder();
+
+        $node = $treeBuilder->root('sqs');
+        $node
+            ->children()
+                ->arrayNode('arguments')
                     ->children()
-                        ->arrayNode('credentials')
+                        ->scalarNode('region')
+                            ->isRequired()
                             ->cannotBeEmpty()
+                        ->end()
+                        ->scalarNode('version')
+                            ->defaultValue('latest')
+                        ->end()
+                        ->arrayNode('credentials')
                             ->children()
                                 ->scalarNode('key')
+                                    ->isRequired()
                                     ->cannotBeEmpty()
                                 ->end()
                                 ->scalarNode('secret')
+                                    ->isRequired()
                                     ->cannotBeEmpty()
                                 ->end()
                             ->end()
                         ->end()
-                        ->scalarNode('region')
-                            ->cannotBeEmpty()
+                    ->end()
+                ->end()
+                ->arrayNode('queues')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('name')
+                                ->isRequired()
+                                ->cannotBeEmpty()
+                            ->end()
                         ->end()
                     ->end()
                 ->end()
             ->end();
 
-        return $treeBuilder;
+        return $node;
     }
 }

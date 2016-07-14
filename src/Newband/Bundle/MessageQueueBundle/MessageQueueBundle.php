@@ -2,6 +2,7 @@
 
 namespace Newband\Bundle\MessageQueueBundle;
 
+use Newband\Bundle\MessageQueueBundle\DependencyInjection\MessageQueueExtension;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -11,5 +12,11 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class MessageQueueBundle extends Bundle
 {
-
+    /**
+     * @return MessageQueueExtension
+     */
+    public function getContainerExtension()
+    {
+        return new MessageQueueExtension();
+    }
 }
