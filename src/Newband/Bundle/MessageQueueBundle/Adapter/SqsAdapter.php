@@ -73,13 +73,14 @@ class SqsAdapter implements Adapter
             'QueueUrl' => $this->queueUrl
         ));
 
-        if ($result['Message'] == null) {
+        if (!isset($result['Messages'])) {
             return null;
         }
 
+        $data = $result['Messages'][0];
         $message = new Message();
-        $message->setId($result['ReceiptHandle']);
-        $message->setBody($result['Body']);
+        $message->setId($data['ReceiptHandle']);
+        $message->setBody($data['Body']);
         return $message;
     }
 }
